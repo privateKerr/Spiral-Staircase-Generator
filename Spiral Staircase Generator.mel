@@ -1,7 +1,9 @@
-int $numSteps = 30;
-float $spiralRadius = 3.0;
+int $numSteps = 100;
+float $spiralRadius = 2.0;
 float $stepHeight = 0.2;
-float $angleIncrement = 10;
+float $stepWidth = 1;
+float $stepLength = 3;
+float $angleIncrement = 20;
 float $spiralHeight = $numSteps * $stepHeight;
 
 for ($i = 0; $i < $numSteps; $i++)
@@ -15,7 +17,10 @@ for ($i = 0; $i < $numSteps; $i++)
     float $z = $spiralRadius * cos(deg_to_rad($angle));
 
     // create the step
-    polyCube -w 1 -h $stepHeight -depth 1 -name ("step " + $i);
-
+    polyCube -w $stepWidth -h $stepHeight -depth $stepLength -name ("step " + $i);
     move -relative $x $y $z;
+
+    // rotation of the steps
+    rotate -relative -objectSpace -forceOrderXYZ 0 $angle 0;
 }
+
