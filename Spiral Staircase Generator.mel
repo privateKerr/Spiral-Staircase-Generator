@@ -1,26 +1,22 @@
-int $numSteps = 100;
-float $spiralRadius = 2.0;
-float $stepHeight = 0.2;
-float $stepWidth = 1;
-float $stepLength = 3;
-float $angleIncrement = 20;
-float $spiralHeight = $numSteps * $stepHeight;
-
-for ($i = 0; $i < $numSteps; $i++)
+proc GenerateStaircase(int $numSteps, float $spiralRadius, float $stepHeight, float $stepWidth, float $stepLength, float $angleIncrement)
 {
-    // calculate the current angle of the step
-    float $angle = $i * $angleIncrement;
+    for ($i = 0; $i < $numSteps; $i++)
+    {
+        // calculate the current angle of the step
+        float $angle = $i * $angleIncrement;
 
-    // calculate position of the step
-    float $x = $spiralRadius * sin(deg_to_rad($angle));
-    float $y = $i * $stepHeight;
-    float $z = $spiralRadius * cos(deg_to_rad($angle));
+        // calculate position of the step
+        float $x = $spiralRadius * sin(deg_to_rad($angle));
+        float $y = $i * $stepHeight;
+        float $z = $spiralRadius * cos(deg_to_rad($angle));
 
-    // create the step
-    polyCube -w $stepWidth -h $stepHeight -depth $stepLength -name ("step " + $i);
-    move -relative $x $y $z;
+        // create the step
+        polyCube -w $stepWidth -h $stepHeight -depth $stepLength -name ("step " + $i);
+        move -relative $x $y $z;
 
-    // rotation of the steps
-    rotate -relative -objectSpace -forceOrderXYZ 0 $angle 0;
+        // rotation of the steps
+        rotate -relative -objectSpace -forceOrderXYZ 0 $angle 0;
+    }
 }
 
+GenerateStaircase(100, 5, .2, 1, 2, 10);
